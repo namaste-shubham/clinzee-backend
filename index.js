@@ -40,6 +40,6 @@ connectDB()
     });
   })
   .catch((error) => {
-    console.error("DB connection Failed!");
+    console.error("DB connection Failed!", error.message);
     process.exit(1);
   });
