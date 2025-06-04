@@ -7,7 +7,13 @@ const Contact = require("./src/models/Contact");
 
 const app = express();
 
-app.use(cors()); // ✅ Allow frontend connection (especially from localhost:3000)
+// ✅ Fix: Enable CORS for your Netlify domain
+app.use(
+  cors({
+    origin: "https://clinzee-frontend.netlify.app",
+    methods: ["GET", "POST"],
+  })
+);
 app.use(express.json()); // ✅ Parse JSON body
 
 app.post("/api/contact", async (req, res) => {
