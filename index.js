@@ -7,10 +7,21 @@ const Contact = require("./src/models/Contact");
 
 const app = express();
 
-// ✅ Fix: Enable CORS for your Netlify domain
+const allowedOrigins = [
+  "https://clinzee-frontend.netlify.app",
+  "https://clinzee.com",
+  "https://www.clinzee.com",
+];
+
 app.use(
   cors({
-    origin: "https://clinzee-frontend.netlify.app",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST"],
   })
 );
